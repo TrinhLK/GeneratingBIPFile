@@ -1,0 +1,213 @@
+package mlamp
+
+	port type Port()
+
+	atom type VirtualMachine()
+		data string occi_core_id
+		data string occi_core_title
+		data string vid
+		data string occi_core_summary
+		export port Port stop()
+		export port Port configure()
+		export port Port deploy()
+		export port Port none()
+		export port Port start()
+		export port Port undeploy()
+
+		place Active, Deployed, Inactive, Undeployed, Error
+
+		initial to Undeployed do {}
+		on stop from Active to Inactive do {}
+		on undeploy from Active to Undeployed do {}
+		on none from Active to Error do {}
+		on undeploy from Deployed to Undeployed do {}
+		on configure from Deployed to Inactive do {}
+		on none from Deployed to Error do {}
+		on configure from Inactive to Inactive do {}
+		on start from Inactive to Active do {}
+		on undeploy from Inactive to Undeployed do {}
+		on none from Inactive to Error do {}
+		on deploy from Undeployed to Deployed do {}
+		on start from Undeployed to Active do {}
+		on none from Undeployed to Error do {}
+		on start from Error to Active do {}
+		on deploy from Error to Deployed do {}
+	end
+
+	atom type Tomcat()
+		data string occi_core_id
+		data string occi_core_title
+		data string vid
+		data string occi_core_summary
+		export port Port stop()
+		export port Port configure()
+		export port Port deploy()
+		export port Port none()
+		export port Port start()
+		export port Port undeploy()
+
+		place Active, Deployed, Inactive, Undeployed, Error
+
+		initial to Undeployed do {}
+		on stop from Active to Inactive do {}
+		on undeploy from Active to Undeployed do {}
+		on none from Active to Error do {}
+		on undeploy from Deployed to Undeployed do {}
+		on configure from Deployed to Inactive do {}
+		on none from Deployed to Error do {}
+		on configure from Inactive to Inactive do {}
+		on start from Inactive to Active do {}
+		on undeploy from Inactive to Undeployed do {}
+		on none from Inactive to Error do {}
+		on deploy from Undeployed to Deployed do {}
+		on start from Undeployed to Active do {}
+		on none from Undeployed to Error do {}
+		on start from Error to Active do {}
+		on deploy from Error to Deployed do {}
+	end
+
+	atom type Apache()
+		data string occi_core_id
+		data string occi_core_title
+		data string vid
+		data string occi_core_summary
+		export port Port stop()
+		export port Port configure()
+		export port Port deploy()
+		export port Port none()
+		export port Port start()
+		export port Port undeploy()
+
+		place Active, Deployed, Inactive, Undeployed, Error
+
+		initial to Undeployed do {}
+		on stop from Active to Inactive do {}
+		on undeploy from Active to Undeployed do {}
+		on none from Active to Error do {}
+		on undeploy from Deployed to Undeployed do {}
+		on configure from Deployed to Inactive do {}
+		on none from Deployed to Error do {}
+		on configure from Inactive to Inactive do {}
+		on start from Inactive to Active do {}
+		on undeploy from Inactive to Undeployed do {}
+		on none from Inactive to Error do {}
+		on deploy from Undeployed to Deployed do {}
+		on start from Undeployed to Active do {}
+		on none from Undeployed to Error do {}
+		on start from Error to Active do {}
+		on deploy from Error to Deployed do {}
+	end
+
+	atom type MySQL()
+		data string occi_core_id
+		data string occi_core_title
+		data string vid
+		data string occi_core_summary
+		export port Port stop()
+		export port Port configure()
+		export port Port deploy()
+		export port Port none()
+		export port Port start()
+		export port Port undeploy()
+
+		place Active, Deployed, Inactive, Undeployed, Error
+
+		initial to Undeployed do {}
+		on stop from Active to Inactive do {}
+		on undeploy from Active to Undeployed do {}
+		on none from Active to Error do {}
+		on undeploy from Deployed to Undeployed do {}
+		on configure from Deployed to Inactive do {}
+		on none from Deployed to Error do {}
+		on configure from Inactive to Inactive do {}
+		on start from Inactive to Active do {}
+		on undeploy from Inactive to Undeployed do {}
+		on none from Inactive to Error do {}
+		on deploy from Undeployed to Deployed do {}
+		on start from Undeployed to Active do {}
+		on none from Undeployed to Error do {}
+		on start from Error to Active do {}
+		on deploy from Error to Deployed do {}
+	end
+
+	atom type Apps()
+		data string occi_core_id
+		data string occi_core_title
+		data string vid
+		data string occi_core_summary
+		export port Port stop()
+		export port Port configure()
+		export port Port deploy()
+		export port Port none()
+		export port Port start()
+		export port Port undeploy()
+
+		place Active, Deployed, Inactive, Undeployed, Error
+
+		initial to Undeployed do {}
+		on stop from Active to Inactive do {}
+		on undeploy from Active to Undeployed do {}
+		on none from Active to Error do {}
+		on undeploy from Deployed to Undeployed do {}
+		on configure from Deployed to Inactive do {}
+		on none from Deployed to Error do {}
+		on configure from Inactive to Inactive do {}
+		on start from Inactive to Active do {}
+		on undeploy from Inactive to Undeployed do {}
+		on none from Inactive to Error do {}
+		on deploy from Undeployed to Deployed do {}
+		on start from Undeployed to Active do {}
+		on none from Undeployed to Error do {}
+		on start from Error to Active do {}
+		on deploy from Error to Deployed do {}
+	end
+
+
+	port type Port()
+
+	connector type apache_tomcat_c150_define(Port p1, Port p2)
+		export port Port ep()
+		define p1' p2 
+	end
+	connector type apache_tomcat_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+
+	compound type mlampCompound()
+		connector apache_tomcat_c150_define apache_tomcat_c150_0(t0.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_0(m0.start, apache_tomcat_c150_0.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_1(t0.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_1(m0.start, apache_tomcat_c150_1.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_2(t0.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_2(m2.start, apache_tomcat_c150_2.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_3(t0.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_3(m2.start, apache_tomcat_c150_3.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_4(t1.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_4(m0.start, apache_tomcat_c150_4.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_5(t1.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_5(m0.start, apache_tomcat_c150_5.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_6(t1.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_6(m2.start, apache_tomcat_c150_6.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_7(t1.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_7(m2.start, apache_tomcat_c150_7.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_8(t2.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_8(m0.start, apache_tomcat_c150_8.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_9(t2.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_9(m0.start, apache_tomcat_c150_9.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_10(t2.start, as0.start)
+		connector apache_tomcat_root_define apache_tomcat_root_10(m2.start, apache_tomcat_c150_10.ep)
+
+		connector apache_tomcat_c150_define apache_tomcat_c150_11(t2.start, as1.start)
+		connector apache_tomcat_root_define apache_tomcat_root_11(m2.start, apache_tomcat_c150_11.ep)
+	end
+end

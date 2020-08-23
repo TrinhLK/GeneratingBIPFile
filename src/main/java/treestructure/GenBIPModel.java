@@ -1,10 +1,10 @@
 package treestructure;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.stream.Collectors;
-
 import supportlibs.*;
 
 
@@ -91,15 +91,57 @@ public class GenBIPModel {
 		GenBIPModel testMT = new GenBIPModel();
 		testMT.test();
 		testMT.generateBIPModel(args[0], args[1]);
+		testMT.genPropertyFile(args[0], args[1]);
 	}
-	
+	/**
+	 * ====================================================================================================================================
+	 * Deadlock properties
+	 * */
+	public void genPropertyFile(String fileXML, String fileConfigure) {
+		ArrayList<Annotation> listAnnotation = FileHandling.getListPropertiesAnnotations(fileXML);
+		HashMap<String, ArrayList<String>> dataOfInstances = FileHandling.getAllInstancesFromConfigurationFile(fileConfigure);
+//		ArrayList<String> result = new ArrayList<String>();
+//		ArrayList<Annotation> listAnnotation = getListPropertiesAnnotations(fileXML);	//List anno has "prop:" string
+//		ComponentInstance ci = getAllInstancesFromConfigurationFile(fileConfigure);
+		StringBuilder sb = new StringBuilder();
+		String bipModelName = FileHandling.getBIPModelNameFromXML(fileXML);
+		
+		if (listAnnotation.size() > 1) {
+			sb.append("(and");
+		}
+		
+		for (Annotation a : listAnnotation) {
+			String newAnno = FileHandling.createConcreteData(a.getValue().replaceAll("prop: ", "").trim(), dataOfInstances);
+			sb.append("\t" + newAnno + "\n");
+		}
+		
+		if (listAnnotation.size() > 1) {
+			sb.append(")\n");
+		}
+		System.out.println(sb);
+
+		/**
+		 * Write to file
+		 * -------------------------------------------------------------------------------------------
+		 * */
+		//Creating a File object
+		File file = new File("output");
+		//Creating the directory
+		file.mkdir();
+		//Create BIP model
+		FileHandling.createFiles("output/" + bipModelName + "-deadlock.pro", sb.toString());
+	}
+	/**
+	 * ====================================================================================================================================
+	 * BIP Model
+	 * */
 	public void generateBIPModel(String fileXML, String fileConfigure) {
 		ArrayList<Annotation> listAnnotation = FileHandling.getListAnnotations(fileXML);
 		HashMap<String, ArrayList<String>> dataOfInstances = FileHandling.getAllInstancesFromConfigurationFile(fileConfigure);
 		String bipModelName = FileHandling.getBIPModelNameFromXML(fileXML);
 		ArrayList<Component> listComponent = FileHandling.getBIPComponentsFromXML(fileXML);
 		StringBuilder sb = new StringBuilder();
-		
+		StringBuilder sbInvariants = new StringBuilder();
 		/**
 		 * BIP Model
 		 * ----------------------------------------
@@ -128,6 +170,33 @@ public class GenBIPModel {
 		}
 		sb.append("\tend\nend");
 		System.out.println(sb);
+		
+		/**
+		 * Invariants content
+		 * -------------------------------------------------------------------------------------------
+		 * */
+		sbInvariants.append("# atom control invariants\n");
+		//Generate the components in detail
+		for (Component c : listComponent) {
+			//-at Type -a atom-control
+			sbInvariants.append("-at " + c.getType() + " -a atom-control\n");
+		}
+		sbInvariants.append("\n# compound control reachability\n");
+		//-ct Track2Peer -a control-reachability
+		sbInvariants.append("-ct " + bipModelName + "Compound -a control-reachability\n");
+		System.out.println(sbInvariants);
+		
+		/**
+		 * Write to file
+		 * -------------------------------------------------------------------------------------------
+		 * */
+		//Creating a File object
+		File file = new File("output");
+		//Creating the directory
+		file.mkdir();
+		//Create BIP model
+		FileHandling.createFiles("output/" + bipModelName + ".bip", sb.toString());
+		FileHandling.createFiles("output/" + bipModelName + "-scheme.inv", sbInvariants.toString());
 	}
 	
 	/**

@@ -1,7 +1,9 @@
 package supportlibs;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,6 +20,137 @@ import org.w3c.dom.NodeList;
 
 public class FileHandling {
 
+	public static void createFiles(String fileName, String content) {
+		try (FileWriter writer = new FileWriter(fileName);
+			BufferedWriter bw = new BufferedWriter(writer)) {
+			bw.write(content);
+		} catch (IOException e) {
+			System.err.format("IOException: %s%n", e);
+		}
+	}
+	
+	public static ArrayList<String> splitBrackets(String input) {
+		String result[] = input.split("[\\(||\\)]");
+		ArrayList<String> rs = new ArrayList<String>();
+		for (String s: result) {
+			s = s.trim();
+			if (s.length() > 0)
+				rs.add(s);
+		}
+		
+		return rs;
+	}
+	
+	public static String createConcreteData(String inputStr, HashMap<String, ArrayList<String>> listComponent) {
+    	HashMap<String, String> oldAndNew = new HashMap<String, String>();
+    	
+    	ArrayList<String> listElems = splitBrackets(inputStr);
+    	
+    	for (String elems : listElems) {
+    		String tempSplit[] = elems.split(" ");
+        	String input = "";
+        	for (String s : tempSplit) {
+        		if (s.contains(".")) {
+        			input = s;
+        		}
+        	}
+        	//find key of listComponent in input, if existed, replaced by list value, save them into oldAndNew
+        	for (HashMap.Entry<String, ArrayList<String>> entry : listComponent.entrySet()) {
+//    		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+    		    if (input.contains(entry.getKey())){
+    		    	String tempRs = "";
+    		    	if (entry.getValue().size() == 1) {
+    		    		tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(entry.getValue().size()-1));
+    		    	} else {
+    		    		tempRs += "(+ ";
+    		    		for (int i=0 ; i<entry.getValue().size() ; i++) {
+        		    		tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(i)) + " ";
+        		    	}
+    		    		tempRs += ")";
+    		    	}
+//    		    	for (int i=0 ; i<entry.getValue().size()-1 ; i++) {
+//    		    		tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(i)) + " + ";
+//    		    	}
+//    		    	tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(entry.getValue().size()-1));
+//    		    	
+//    		    	System.out.println(input + "\t->\t" + tempRs);
+    		    	oldAndNew.put(input, tempRs);
+    		    }
+    		}
+    	}
+    	
+    	for (HashMap.Entry<String, String> entry : oldAndNew.entrySet()) {
+    		if (inputStr.contains(entry.getKey())) {
+    			inputStr = inputStr.replaceAll(entry.getKey(), entry.getValue());
+    		}
+    	}
+    	inputStr = inputStr.replaceAll("\\.", "_");
+//    	System.out.println(inputStr);
+    	return inputStr;
+    }
+	/**
+	 * Get list annotations properties from the XML file
+	 * */
+	public static ArrayList<Annotation> getListPropertiesAnnotations(String fileName) {
+		ArrayList<Annotation> listAnnotation = new ArrayList<Annotation>();
+		
+	    try {
+	    	File file = new File(fileName);
+			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+			                         .newDocumentBuilder();
+			Document doc = dBuilder.parse(file);
+			
+			NodeList nListAnnos = doc.getElementsByTagName("annotations");
+			for (int iAnnos=0 ; iAnnos<nListAnnos.getLength() ; iAnnos++) {
+				Node curAnnos = nListAnnos.item(iAnnos);
+				if (curAnnos.getNodeType() == Node.ELEMENT_NODE) {
+					if (curAnnos.hasAttributes()) {
+						NamedNodeMap nodeMapAnnos = curAnnos.getAttributes();
+						for (int jAnnos = 0; jAnnos < nodeMapAnnos.getLength(); jAnnos++) {
+							
+							Node nodeAnnos = nodeMapAnnos.item(jAnnos);
+							if (nodeAnnos.getNodeName().equals("name")) {
+								if (nodeAnnos.getNodeValue().equalsIgnoreCase("Specification")) {
+									NodeList nList = curAnnos.getChildNodes();
+									//System.out.println("Check properties: " + nList.getLength());
+
+									for (int i=0 ; i<nList.getLength() ; i++) {
+										Node curAnno = nList.item(i);
+										//System.out.println(curAnno.getNodeName() + "\t" + curAnno.getNodeValue());
+										String id, value;
+										id = value = "";
+										if (curAnno.getNodeType() == Node.ELEMENT_NODE) {
+											if (curAnno.hasAttributes()) {
+												NamedNodeMap nodeMap = curAnno.getAttributes();
+												for (int j = 0; j < nodeMap.getLength(); j++) {
+													
+													Node node = nodeMap.item(j);
+													if (node.getNodeName().equals("id")) {
+														id = node.getNodeValue();
+													}
+												}
+											}
+										}
+										value = curAnno.getTextContent();
+										
+										if (value.contains("prop:")) {
+											listAnnotation.add(new Annotation(id, value));
+											System.out.println(value);
+										}
+											
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+	    }catch (Exception e) {
+			// TODO: handle exception
+		}
+	    return listAnnotation;
+	}
+	
 	/**
 	 * Get BIP Components From the XML file
 	 * */

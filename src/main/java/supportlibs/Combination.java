@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Combination {
     public static void main (String[] args) { 
-    	Combination testCombination = new Combination();
+//    	Combination testCombination = new Combination();
         HashMap<String, ArrayList<String>> data = new HashMap<>();
         String test = "Person talked to Person";
         String test1 = "Person requires (Person, Person, Itemize, Itemize)";
@@ -23,11 +23,14 @@ public class Combination {
         input1.add("it3");
         data.put("Person", input);
         data.put("Itemize", input1);
-        testCombination.generateAllPossibleInstances(test, data);
-        testCombination.generateAllPossibleInstances(test1, data);
+        generateAllPossibleInstances(test, data);
+        generateAllPossibleInstances(test1, data);
         
     }
     
+    /**
+     * Gen instances from schema
+     * */
     public static ArrayList<String> generateAllPossibleInstances(String connectorString,  HashMap<String, ArrayList<String>> data){
     	ArrayList<String> result = new ArrayList<String>();
 		result.add(connectorString);
@@ -67,9 +70,13 @@ public class Combination {
         	result.set(i, temp);
 //        	System.out.println(result.get(i));
         }
-//        for (String s : result) {
-//        	System.out.println("each s: " + s);
-//        }
+        System.out.println(connectorString);
+        System.out.println("-------------------------");
+        int i=0;
+        for (String s : result) {
+        	i++;
+        	System.out.println(i + ":\t" + s);
+        }
         return result;
     }
     
