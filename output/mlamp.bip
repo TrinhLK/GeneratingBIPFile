@@ -165,6 +165,10 @@ package mlamp
 
 	port type Port()
 
+	connector type apache_tomcat_c161_define(Port p1, Port p2)
+		export port Port ep()
+		define p1' p2 
+	end
 	connector type apache_tomcat_c150_define(Port p1, Port p2)
 		export port Port ep()
 		define p1' p2 
@@ -174,40 +178,100 @@ package mlamp
 	end
 
 	compound type mlampCompound()
-		connector apache_tomcat_c150_define apache_tomcat_c150_0(t0.start, as0.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_0(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_0(t0.start, apache_tomcat_c161_0.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_0(m0.start, apache_tomcat_c150_0.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_1(t0.start, as1.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_1(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_1(t0.start, apache_tomcat_c161_1.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_1(m0.start, apache_tomcat_c150_1.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_2(t0.start, as0.start)
-		connector apache_tomcat_root_define apache_tomcat_root_2(m2.start, apache_tomcat_c150_2.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_2(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_2(t0.start, apache_tomcat_c161_2.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_2(m0.start, apache_tomcat_c150_2.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_3(t0.start, as1.start)
-		connector apache_tomcat_root_define apache_tomcat_root_3(m2.start, apache_tomcat_c150_3.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_3(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_3(t0.start, apache_tomcat_c161_3.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_3(m0.start, apache_tomcat_c150_3.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_4(t1.start, as0.start)
-		connector apache_tomcat_root_define apache_tomcat_root_4(m0.start, apache_tomcat_c150_4.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_4(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_4(t0.start, apache_tomcat_c161_4.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_4(m2.start, apache_tomcat_c150_4.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_5(t1.start, as1.start)
-		connector apache_tomcat_root_define apache_tomcat_root_5(m0.start, apache_tomcat_c150_5.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_5(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_5(t0.start, apache_tomcat_c161_5.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_5(m2.start, apache_tomcat_c150_5.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_6(t1.start, as0.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_6(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_6(t0.start, apache_tomcat_c161_6.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_6(m2.start, apache_tomcat_c150_6.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_7(t1.start, as1.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_7(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_7(t0.start, apache_tomcat_c161_7.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_7(m2.start, apache_tomcat_c150_7.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_8(t2.start, as0.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_8(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_8(t1.start, apache_tomcat_c161_8.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_8(m0.start, apache_tomcat_c150_8.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_9(t2.start, as1.start)
+		connector apache_tomcat_c161_define apache_tomcat_c161_9(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_9(t1.start, apache_tomcat_c161_9.ep)
 		connector apache_tomcat_root_define apache_tomcat_root_9(m0.start, apache_tomcat_c150_9.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_10(t2.start, as0.start)
-		connector apache_tomcat_root_define apache_tomcat_root_10(m2.start, apache_tomcat_c150_10.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_10(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_10(t1.start, apache_tomcat_c161_10.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_10(m0.start, apache_tomcat_c150_10.ep)
 
-		connector apache_tomcat_c150_define apache_tomcat_c150_11(t2.start, as1.start)
-		connector apache_tomcat_root_define apache_tomcat_root_11(m2.start, apache_tomcat_c150_11.ep)
+		connector apache_tomcat_c161_define apache_tomcat_c161_11(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_11(t1.start, apache_tomcat_c161_11.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_11(m0.start, apache_tomcat_c150_11.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_12(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_12(t1.start, apache_tomcat_c161_12.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_12(m2.start, apache_tomcat_c150_12.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_13(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_13(t1.start, apache_tomcat_c161_13.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_13(m2.start, apache_tomcat_c150_13.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_14(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_14(t1.start, apache_tomcat_c161_14.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_14(m2.start, apache_tomcat_c150_14.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_15(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_15(t1.start, apache_tomcat_c161_15.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_15(m2.start, apache_tomcat_c150_15.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_16(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_16(t2.start, apache_tomcat_c161_16.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_16(m0.start, apache_tomcat_c150_16.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_17(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_17(t2.start, apache_tomcat_c161_17.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_17(m0.start, apache_tomcat_c150_17.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_18(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_18(t2.start, apache_tomcat_c161_18.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_18(m0.start, apache_tomcat_c150_18.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_19(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_19(t2.start, apache_tomcat_c161_19.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_19(m0.start, apache_tomcat_c150_19.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_20(as0.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_20(t2.start, apache_tomcat_c161_20.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_20(m2.start, apache_tomcat_c150_20.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_21(as0.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_21(t2.start, apache_tomcat_c161_21.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_21(m2.start, apache_tomcat_c150_21.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_22(as1.start, la0.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_22(t2.start, apache_tomcat_c161_22.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_22(m2.start, apache_tomcat_c150_22.ep)
+
+		connector apache_tomcat_c161_define apache_tomcat_c161_23(as1.start, la1.start)
+		connector apache_tomcat_c150_define apache_tomcat_c150_23(t2.start, apache_tomcat_c161_23.ep)
+		connector apache_tomcat_root_define apache_tomcat_root_23(m2.start, apache_tomcat_c150_23.ep)
 	end
 end
