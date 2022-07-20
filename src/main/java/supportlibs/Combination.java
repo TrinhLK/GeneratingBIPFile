@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import org.apache.commons.lang3.StringUtils;
 
 public class Combination {
     public static void main (String[] args) { 
@@ -34,11 +33,14 @@ public class Combination {
     public static ArrayList<String> generateAllPossibleInstances(String connectorString,  HashMap<String, ArrayList<String>> data){
     	ArrayList<String> result = new ArrayList<String>();
 		result.add(connectorString);
+//		System.out.println("data set:" + data);
         for (String akey : data.keySet()) {
 //        	System.out.println("considering: " + akey);
         	ArrayList<String> tempResult = new ArrayList<String>();
         	for (String anInput : result) {
-        		if (StringUtils.countMatches(anInput, akey) > data.get(akey).size()) {
+//        		System.out.println("check: " + anInput + "\t" + countMatches(anInput, akey) + "\t" + data.get(akey).size());
+//        		System.out.println("check1: " + data.get(akey));
+        		if (countMatches(anInput, akey) > data.get(akey).size()) {
                 	System.out.println("Error: the number of value {" + akey + "} is lesser than the number of key in the input");
                 	return null;
             	}else {
@@ -46,7 +48,7 @@ public class Combination {
 //            		System.out.println("test k,v: " + data.get(akey));
             		ArrayList<ArrayList<String>> listCombine = new ArrayList<ArrayList<String>>();
             		ArrayList<ArrayList<String>> listPermute = new ArrayList<ArrayList<String>>();
-                	int k = StringUtils.countMatches(anInput, akey);
+                	int k = countMatches(anInput, akey);
                 	String[] tempRs = new String[k];
                 	//Combination k of n
                 	combinationsString(data.get(akey), k, 0, tempRs, listCombine);
@@ -57,9 +59,17 @@ public class Combination {
 //                	System.out.println("----After permute");
 //            		System.out.println(listPermute);
                 	for (ArrayList<String> aPermute : listPermute) {
-                		tempResult.add(replaceAStringByHashMapValues(anInput, akey, aPermute));
+//                		System.out.println("Before replace: " + akey + "\t" + aPermute);
+                		String akeyName = akey + ".";
+                		ArrayList<String> aPermuteName = new ArrayList<String>();
+                		for (String per : aPermute) {
+                			aPermuteName.add(per + ".");
+                		}
+//                		String aPermuteName = aPermute + ".";
+                		
+                		tempResult.add(replaceAStringByHashMapValues(anInput, akeyName, aPermuteName));
                 	}
-//                	System.out.println("size: " + tempResult.size() + "\n" + tempResult);
+                	System.out.println("size: " + tempResult.size() + "\n" + tempResult);
             	}
         		result = tempResult;
         	}
@@ -82,7 +92,8 @@ public class Combination {
     
     private static String replaceAStringByHashMapValues(String input, String replaceValue, ArrayList<String> data) {
     	for (String aValue : data) {
-    		input = input.replaceFirst(replaceValue, aValue);
+//    		System.out.println("CHECK REPLACING: " + input + "\t" + replaceValue + "\t" + data);
+    		input = input.replace(replaceValue, aValue);
     	}
     
     	return input;
@@ -112,6 +123,17 @@ public class Combination {
             permuteString(str, index+1, result);	//Recurse on the sub array arr[index+1...end]
             Collections.swap(str, index, i);	//Swap the elements back
     	}
+    }
+    
+    private static int countMatches(String original, String check) {
+    	int count = 0, index = 0;
+    	ArrayList<Integer> indices=new ArrayList<Integer>();
+        while ((index = original.indexOf(check+".", index)) != -1 ){
+            count++;
+            indices.add(index);
+            index++;
+        }
+        return count;
     }
 }
 /**

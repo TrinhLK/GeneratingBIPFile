@@ -23,6 +23,17 @@ public class Component {
 		actions = _actions;
 		states = _states;
 		transitions = _transitions;
+		updateFunctionNameOfTransitions(_actions, _transitions);
+	}
+	
+	public void updateFunctionNameOfTransitions(ArrayList<String> actions, ArrayList<Transition> transitions){
+		for (Transition trans : transitions) {
+			for (String act : actions) {
+				if (act.equalsIgnoreCase(trans.getAction())) {
+					trans.setAction(act);
+				}
+			}
+		}
 	}
 	
 	public String generateComponent() {
@@ -49,8 +60,10 @@ public class Component {
 		}
 		if (states.size() > 1) {
 			rs += states.get(states.size()-1).getName();
+		}else {
+			rs += states.get(0).getName();
 		}
-			rs += "\n";
+		rs += "\n";
 		ArrayList<States> listInitialState = getListInitialStates();
 		for (States initS : listInitialState) {
 			rs += "\n\t\tinitial to " + initS.getName() + " do {}\n";

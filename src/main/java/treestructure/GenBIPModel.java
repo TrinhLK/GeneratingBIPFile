@@ -89,9 +89,13 @@ public class GenBIPModel {
 	
 	public static void main(String[] args) {
 		GenBIPModel testMT = new GenBIPModel();
-		testMT.test();
-		testMT.generateBIPModel(args[0], args[1]);
-		testMT.genPropertyFile(args[0], args[1]);
+//		testMT.test();
+//		testMT.generateBIPModel(args[0], args[1]);
+//		testMT.genPropertyFile(args[0], args[1]);
+		String xmlFile = "input/monitorswitch.xml";
+		String configFile = "input/monitorswitchconfig.monitorswitch.occic";
+		testMT.generateBIPModel(xmlFile, configFile);
+		testMT.genPropertyFile(xmlFile, configFile);
 	}
 	/**
 	 * ====================================================================================================================================
@@ -112,6 +116,7 @@ public class GenBIPModel {
 		
 		for (Annotation a : listAnnotation) {
 			String newAnno = FileHandling.createConcreteData(a.getValue().replaceAll("prop: ", "").trim(), dataOfInstances);
+			System.out.println("Data of Instances: " + dataOfInstances);
 			sb.append("\t" + newAnno + "\n");
 		}
 		
@@ -142,6 +147,8 @@ public class GenBIPModel {
 		ArrayList<Component> listComponent = FileHandling.getBIPComponentsFromXML(fileXML);
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sbInvariants = new StringBuilder();
+//		ArrayList<Annotation> listPickedAnnotations = new ArrayList<Annotation>();
+//		ArrayList<String> listPickedAnnotations_String = new ArrayList<String>();
 		/**
 		 * BIP Model
 		 * ----------------------------------------
@@ -153,20 +160,43 @@ public class GenBIPModel {
 		for (Component c : listComponent) {
 			sb.append(c.generateComponent() + "\n\n");
 		}
-				
+		
+		String pickedAnno = "";
 		for (Annotation anno : listAnnotation) {
-			TreeNode root = new TreeNode("root.null", false, null);
-			createTree(root, anno.getValue(), 0);
-			sb.append(genBIPDefineCode(root, anno.getValue(), anno.getId()));
+			if (anno.getId().equals("MAIN")) {
+				pickedAnno = anno.getValue();
+			}
+		}
+		String[] res = pickedAnno.split(",[\\s]*");
+		for (String out : res) {
+	        if (!"".equals(out)) {
+	            System.out.println(out);
+	        }
+	    }
+//		System.out.println("PICKED: " + res);
+		for (Annotation anno : listAnnotation) {
+			if (isIn(anno.getId(), res)) {
+				TreeNode root = new TreeNode("root.null", false, null);
+				createTree(root, anno.getValue(), 0);
+				sb.append(genBIPDefineCode(root, anno.getValue(), anno.getId()));
+			}
 		}
 		
 		//Create Compound
 		sb.append("\n\tcompound type " + bipModelName + "Compound()\n");
 		
+		for (String component : dataOfInstances.keySet()) {
+			for (String ins : dataOfInstances.get(component)) {
+				sb.append("\t\tcomponent " + component + " " + ins + "()\n");
+			}
+		}
+
 		for (Annotation anno : listAnnotation) {
-			TreeNode root = new TreeNode("root.null", false, null);
-			createTree(root, anno.getValue(), 0);
-			sb.append(genDetailBIPConnector(root, anno.getValue(), anno.getId(), dataOfInstances));
+			if (isIn(anno.getId(), res)) {
+				TreeNode root = new TreeNode("root.null", false, null);
+				createTree(root, anno.getValue(), 0);
+				sb.append(genDetailBIPConnector(root, anno.getValue(), anno.getId(), dataOfInstances));
+			}
 		}
 		sb.append("\tend\nend");
 		System.out.println(sb);
@@ -208,7 +238,7 @@ public class GenBIPModel {
 		String bipDefString = "";
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("\n\tport type Port()\n\n");
+//		sb.append("\n\tport type Port()\n\n");
 		
 		//Connector Definition
 		root.genDefineBIP(bipDefine, annoId);
@@ -232,7 +262,7 @@ public class GenBIPModel {
 		
 		//Generating all possible connectors 
 		bipConnector = Combination.generateAllPossibleInstances(bipConnectorStr, dataOfInstances);
-		
+		System.out.println("check null: " + bipConnector);
 		return bipConnector.stream().collect(Collectors.joining("\n"));
 	}
 	
@@ -302,5 +332,14 @@ public class GenBIPModel {
 				createTree(root, remainStr, index+1);
 			}
 		}
+	}
+	
+	public boolean isIn(String value, String[] listValue) {
+		for (String item : listValue) {
+			if (value.equals(item)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

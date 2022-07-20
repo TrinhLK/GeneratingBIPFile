@@ -42,6 +42,65 @@ public class FileHandling {
 	}
 	
 	public static String createConcreteData(String inputStr, HashMap<String, ArrayList<String>> listComponent) {
+    	    	
+    	String tempSplit[] = inputStr.split(" ");
+//    	System.out.println("check splitted string: ");
+//    	for (String s : tempSplit) {
+//    		System.out.println(s);
+//    	}
+//    	String input = "";
+    	ArrayList<String> newContent = new ArrayList<String>();
+    	
+    	for (String input : tempSplit) {
+    		if (input.contains(".")) {
+    			for (HashMap.Entry<String, ArrayList<String>> entry : listComponent.entrySet()) {
+    				String content[] = input.split("\\.");
+//    				System.out.println("content_0: " + content[0]);
+        		    if (content[0].equals(entry.getKey())){
+        		    	String tempRs = "";
+//        		    	String newContent_0 = "";
+//        		    	System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+        		    	if (entry.getValue().size() == 1) {
+        		    		tempRs += content[0].replaceAll(entry.getKey(), entry.getValue().get(entry.getValue().size()-1)) + "." + content[1];
+        		    	} else {
+        		    		tempRs += "(+ ";
+        		    		for (int i=0 ; i<entry.getValue().size() ; i++) {
+            		    		tempRs += content[0].replaceAll(entry.getKey(), entry.getValue().get(i)) + "." + content[1] + " ";
+            		    	}
+        		    		tempRs += ")";
+        		    	}
+//        		    	for (int i=0 ; i<entry.getValue().size()-1 ; i++) {
+//        		    		tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(i)) + " + ";
+//        		    	}
+//        		    	tempRs += input.replaceAll(entry.getKey(), entry.getValue().get(entry.getValue().size()-1));
+//        		    	
+//        		    	System.out.println(input + "\t->\t" + tempRs);
+//        		    	oldAndNew.put(input, tempRs);
+        		    	newContent.add(tempRs.replace(".", "_"));
+        		    }
+        		}
+    		} else {
+    			newContent.add(input);
+    		}
+    		
+    	}
+    	
+//    	System.out.println(newContent);
+    	String result = "";
+    	for (String s : newContent) {
+    		result += s + " ";
+    	}
+//    	for (HashMap.Entry<String, String> entry : oldAndNew.entrySet()) {
+//    		if (inputStr.contains(entry.getKey())) {
+//    			inputStr = inputStr.replaceAll(entry.getKey(), entry.getValue());
+//    		}
+//    	}
+//    	inputStr = inputStr.replaceAll("\\.", "_");
+//    	System.out.println(result);
+    	return result;
+    }
+	
+	public static String createConcreteData_bu(String inputStr, HashMap<String, ArrayList<String>> listComponent) {
     	HashMap<String, String> oldAndNew = new HashMap<String, String>();
     	
     	ArrayList<String> listElems = splitBrackets(inputStr);

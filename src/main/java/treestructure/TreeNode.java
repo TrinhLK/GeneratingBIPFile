@@ -145,6 +145,7 @@ public class TreeNode {
 	}
 	
 	public void setNameAndAction(String _content) {
+		System.out.println("print content: " + _content);
 		String[] sp = _content.replaceAll("`|\\*|\\)|\\(", "").split("\\.");
 		componentTypeName = sp[0];
 		portTypeName = sp[1];

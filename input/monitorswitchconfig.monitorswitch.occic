@@ -1,0 +1,6 @@
+configuration use "http://occiwarebip.org/monitorswitch#/" resource "urn:uuid:ecbc6aee-2269-4fb8-a413-c9a3fd81f303" : monitorswitch.Monitor title "monitor"
+{ } resource "urn:uuid:256089b1-5d9e-4abd-ba07-a392a929af4e" : monitorswitch.Monitor_2 title "monitor_2"
+{ } resource "urn:uuid:92924e87-3871-49e2-96c6-1692d6177796" : monitorswitch.Monitor_3 title "monitor_3"
+{ } resource "urn:uuid:dcf8234a-38c9-482f-bd2e-1d81de6140c4" : monitorswitch.Monitor_4 title "monitor_4"
+{ } resource "urn:uuid:c317de8b-cb9a-429e-8e87-7fdec132bb3f" : monitorswitch.Switch title "switch"
+{ }
