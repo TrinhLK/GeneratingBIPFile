@@ -1,0 +1,14 @@
+# atom control invariants
+-at HerokuBuildpack -a atom-control
+-at Database -a atom-control
+-at HerokuClearDBMySQL -a atom-control
+-at HerokuDynoType -a atom-control
+-at HerokuNewRelicAPM -a atom-control
+-at HerokuPostgres -a atom-control
+-at HerokuRegion -a atom-control
+-at HerokuScoutAPM -a atom-control
+-at Monitoring -a atom-control
+-at Deployer -a atom-control
+
+# compound control reachability
+-ct herokudeployerCompound -a control-reachability

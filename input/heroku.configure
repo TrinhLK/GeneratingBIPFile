@@ -1,0 +1,9 @@
+configuration use "http://occiware.org/herokudeployer#/" resource "urn:uuid:7b28d2c8-f47d-4340-808f-6587f1bcf23a" : herokudeployer.HerokuBuildpack title "buildpack"
+{ } resource "urn:uuid:7b28d2c8-f47d-4340-808f-6587f1bcf23a" : herokudeployer.HerokuDynoType title "dynotype"
+{ } resource "urn:uuid:f6fc32db-c1c9-4752-980f-a977fd346d9d" : herokudeployer.HerokuClearDBMySQL title "cleardb"
+{ } resource "urn:uuid:accf304c-9d6d-495c-839a-abab19e358bc" : herokudeployer.HerokuNewRelicAPM title "relic"
+{ } resource "urn:uuid:3947e023-da97-4486-95e8-fa515f5c1a19" : herokudeployer.HerokuPostgres title "postgres"
+{ } resource "urn:uuid:c8117229-dd47-40d7-ab39-541f16dda96d" : herokudeployer.HerokuScoutAPM title "scout"
+{ } resource "urn:uuid:c8117229-dd47-40d7-ab39-541f16dda96d" : herokudeployer.HerokuRegion title "region"
+{ } resource "urn:uuid:784edd0f-fde2-48c9-856f-2d99fac79e8b" : herokudeployer.Deployer title "deployer"
+{ } 

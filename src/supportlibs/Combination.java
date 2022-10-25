@@ -41,8 +41,12 @@ public class Combination {
 //        		System.out.println("check: " + anInput + "\t" + countMatches(anInput, akey) + "\t" + data.get(akey).size());
 //        		System.out.println("check1: " + data.get(akey));
         		if (countMatches(anInput, akey) > data.get(akey).size()) {
-                	System.out.println("Error: the number of value {" + akey + "} is lesser than the number of key in the input");
-                	return null;
+        			if (data.get(akey).size() == 1) {
+        				tempResult.add(replaceAStringByHashMapValues(anInput, akey, data.get(akey)));
+        			}else {
+        				System.out.println("Error: the number of value {" + akey + "} is lesser than the number of key in the input");
+                    	return null;
+        			}
             	}else {
             		
 //            		System.out.println("test k,v: " + data.get(akey));

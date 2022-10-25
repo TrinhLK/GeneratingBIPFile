@@ -1,0 +1,841 @@
+package herokudeployer
+
+	port type Port()
+
+	atom type HerokuBuildpack()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port setAddonsForGo()
+		export port Port removeScala()
+		export port Port setAddonsForPhp()
+		export port Port setJava()
+		export port Port setAddonsForRuby()
+		export port Port removeClojure()
+		export port Port setAddonsForPython()
+		export port Port setAddonsForClojure()
+		export port Port setAddonsForJava()
+		export port Port removePython()
+		export port Port setAddonsForNodejs()
+		export port Port removeRuby()
+		export port Port setScala()
+		export port Port setPython()
+		export port Port setAddonsForJvm()
+		export port Port setPhp()
+		export port Port removeNodejs()
+		export port Port setGo()
+		export port Port setRuby()
+		export port Port setAddonsForGradle()
+		export port Port removeGo()
+		export port Port removeJava()
+		export port Port setAddonsForScala()
+		export port Port setNodejs()
+		export port Port setJvm()
+		export port Port setGradle()
+		export port Port removePhp()
+		export port Port removeJvm()
+		export port Port setClojure()
+		export port Port removeGradle()
+
+		place Init, Java, Scala, Python, Ruby, Nodejs, Clojure, Gradle, Jvm, Php, Go
+
+		initial to Init do {}
+		on setJava from Init to Java do {}
+		on setScala from Init to Scala do {}
+		on setPython from Init to Python do {}
+		on setRuby from Init to Ruby do {}
+		on setPhp from Init to Php do {}
+		on setGo from Init to Go do {}
+		on setNodejs from Init to Nodejs do {}
+		on setGradle from Init to Gradle do {}
+		on setClojure from Init to Clojure do {}
+		on setJvm from Init to Jvm do {}
+		on setAddonsForJava from Java to Java do {}
+		on removeJava from Java to Init do {}
+		on setAddonsForScala from Scala to Scala do {}
+		on removeScala from Scala to Init do {}
+		on removePython from Python to Init do {}
+		on setAddonsForPython from Python to Python do {}
+		on setAddonsForRuby from Ruby to Ruby do {}
+		on removeRuby from Ruby to Init do {}
+		on removeNodejs from Nodejs to Init do {}
+		on setAddonsForNodejs from Nodejs to Nodejs do {}
+		on setAddonsForClojure from Clojure to Clojure do {}
+		on removeClojure from Clojure to Init do {}
+		on setAddonsForGradle from Gradle to Gradle do {}
+		on removeGradle from Gradle to Init do {}
+		on setAddonsForJvm from Jvm to Jvm do {}
+		on removeJvm from Jvm to Init do {}
+		on setAddonsForPhp from Php to Php do {}
+		on removePhp from Php to Init do {}
+		on setAddonsForGo from Go to Go do {}
+		on removeGo from Go to Init do {}
+	end
+
+	atom type Database()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port reset()
+		export port Port addClearDBMySQL()
+		export port Port addHerokuPostgres()
+
+		place Init, DatabaseUsed
+
+		initial to Init do {}
+		on addClearDBMySQL from Init to DatabaseUsed do {}
+		on addHerokuPostgres from Init to DatabaseUsed do {}
+		on reset from DatabaseUsed to Init do {}
+	end
+
+	atom type HerokuClearDBMySQL()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port sub1()
+		export port Port init()
+		export port Port off()
+		export port Port reset1()
+		export port Port fon()
+
+		place Init, Off, stateOn, Ignite
+
+		initial to Init do {}
+		on init from Init to Off do {}
+		on fon from Off to stateOn do {}
+		on off from Off to Off do {}
+		on fon from stateOn to stateOn do {}
+		on off from stateOn to Off do {}
+		on sub1 from stateOn to Ignite do {}
+		on reset1 from Ignite to Off do {}
+	end
+
+	atom type HerokuDynoType()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port reset1()
+		export port Port sub1()
+		export port Port sendDynoResponse()
+
+		place Init, Free
+
+		initial to Init do {}
+		on sub1 from Init to Free do {}
+		on sendDynoResponse from Free to Free do {}
+		on reset1 from Free to Init do {}
+	end
+
+	atom type HerokuNewRelicAPM()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port off()
+		export port Port fon()
+		export port Port reset1()
+		export port Port init()
+		export port Port sub1()
+
+		place Init, Off, stateOn, Wayne
+
+		initial to Init do {}
+		on init from Init to Off do {}
+		on off from Off to Off do {}
+		on fon from Off to stateOn do {}
+		on off from stateOn to Off do {}
+		on fon from stateOn to stateOn do {}
+		on sub1 from stateOn to Wayne do {}
+		on reset1 from Wayne to Off do {}
+	end
+
+	atom type HerokuPostgres()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port fon()
+		export port Port up1t2()
+		export port Port down2t1()
+		export port Port reset2()
+		export port Port sub1()
+		export port Port sendAddonResponse()
+		export port Port reset1()
+		export port Port off()
+		export port Port sub2()
+		export port Port init()
+
+		place Init, Off, stateOn, HobbyBasic, HobbyDev
+
+		initial to Init do {}
+		on init from Init to Off do {}
+		on off from Off to Off do {}
+		on off from Off to stateOn do {}
+		on fon from stateOn to Off do {}
+		on fon from stateOn to stateOn do {}
+		on sub1 from stateOn to HobbyDev do {}
+		on sub2 from stateOn to HobbyBasic do {}
+		on sendAddonResponse from HobbyBasic to HobbyBasic do {}
+		on down2t1 from HobbyBasic to HobbyDev do {}
+		on reset2 from HobbyBasic to Off do {}
+		on sendAddonResponse from HobbyDev to HobbyDev do {}
+		on up1t2 from HobbyDev to HobbyBasic do {}
+		on reset1 from HobbyDev to Off do {}
+	end
+
+	atom type HerokuRegion()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port toUS()
+		export port Port USreset()
+		export port Port EUreset()
+		export port Port toEU()
+		export port Port setAddonsForUS()
+		export port Port setAddonsForEU()
+
+		place Init, EU, EUAddonsSet, US, USAddonsSet
+
+		initial to Init do {}
+		on toEU from Init to EU do {}
+		on toUS from Init to US do {}
+		on setAddonsForEU from EU to EUAddonsSet do {}
+		on EUreset from EUAddonsSet to Init do {}
+		on setAddonsForUS from US to USAddonsSet do {}
+		on USreset from USAddonsSet to Init do {}
+	end
+
+	atom type HerokuScoutAPM()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port init()
+		export port Port fon()
+		export port Port off()
+		export port Port sub1()
+		export port Port reset1()
+
+		place Init, Off, stateOn, Chair
+
+		initial to Init do {}
+		on init from Init to Off do {}
+		on fon from Off to stateOn do {}
+		on off from Off to Off do {}
+		on fon from stateOn to stateOn do {}
+		on off from stateOn to Off do {}
+		on sub1 from stateOn to Chair do {}
+		on reset1 from Chair to Off do {}
+	end
+
+	atom type Monitoring()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port addNewRelicAPM()
+		export port Port addScoutAPM()
+		export port Port reset()
+
+		place Init, MonitoringUsed
+
+		initial to Init do {}
+		on addNewRelicAPM from Init to MonitoringUsed do {}
+		on addScoutAPM from Init to MonitoringUsed do {}
+		on reset from MonitoringUsed to Init do {}
+	end
+
+	atom type Deployer()
+		data string occi_core_title
+		data string occi_core_id
+		data string occi_core_summary
+		export port Port setJvm()
+		export port Port addScoutAPM1()
+		export port Port addNewRelicAPM1()
+		export port Port setAddonsForJvm()
+		export port Port setAddonsForGo()
+		export port Port appPushingError()
+		export port Port setUSRegion()
+		export port Port setRuby()
+		export port Port setFreeDyno()
+		export port Port setAddonsForUS()
+		export port Port dynoCreatingError()
+		export port Port resetAll()
+		export port Port deleteContainerSpontaneous()
+		export port Port toAppReady()
+		export port Port setScala()
+		export port Port setClojure()
+		export port Port setEURegion()
+		export port Port setGo()
+		export port Port chooseConfig()
+		export port Port setAddonsForRuby()
+		export port Port addonAddingError()
+		export port Port clickAddMorePostgres()
+		export port Port setPython()
+		export port Port setAddonsForPython()
+		export port Port receiveDynoResponse()
+		export port Port addClearDBMySQL1()
+		export port Port javaBIPdetach()
+		export port Port setJava()
+		export port Port addHerokuPostgres1()
+		export port Port finish()
+		export port Port setPhp()
+		export port Port deleteContainer()
+		export port Port setAddonsForScala()
+		export port Port addHerokuPostgres2()
+		export port Port setAddonsForClojure()
+		export port Port setAddonsForNodejs()
+		export port Port setAddonsForEU()
+		export port Port setAddonsForPhp()
+		export port Port setGradle()
+		export port Port setAddonsForGradle()
+		export port Port setAddonsForJava()
+		export port Port addMorePostgres()
+		export port Port setNodejs()
+		export port Port pushAppToContainer()
+		export port Port receiveAddonResponse()
+
+		place Init, CofigurationChosen, FreeDynoSet, Error, US, EU, ContainerCreated, Java, Jvm, Scala, Python, Ruby, Nodejs, Clojure, Gradle, Php, Go, BuildpackSet, AppPushed, AppReady, TempAppReady, Deleted, Detached
+
+		initial to Init do {}
+		on chooseConfig from Init to CofigurationChosen do {}
+		on toAppReady from Init to AppReady do {}
+		on setFreeDyno from CofigurationChosen to FreeDynoSet do {}
+		on receiveDynoResponse from FreeDynoSet to FreeDynoSet do {}
+		on dynoCreatingError from FreeDynoSet to Error do {}
+		on setUSRegion from FreeDynoSet to US do {}
+		on setEURegion from FreeDynoSet to EU do {}
+		on deleteContainer from Error to Deleted do {}
+		on setAddonsForUS from US to ContainerCreated do {}
+		on setAddonsForEU from EU to ContainerCreated do {}
+		on setJava from ContainerCreated to Java do {}
+		on setJvm from ContainerCreated to Jvm do {}
+		on setScala from ContainerCreated to Scala do {}
+		on setPython from ContainerCreated to Python do {}
+		on setRuby from ContainerCreated to Ruby do {}
+		on setNodejs from ContainerCreated to Nodejs do {}
+		on setClojure from ContainerCreated to Clojure do {}
+		on setGradle from ContainerCreated to Gradle do {}
+		on setPhp from ContainerCreated to Php do {}
+		on setGo from ContainerCreated to Go do {}
+		on setAddonsForJava from Java to BuildpackSet do {}
+		on setAddonsForJvm from Jvm to BuildpackSet do {}
+		on setAddonsForScala from Scala to BuildpackSet do {}
+		on setAddonsForPython from Python to BuildpackSet do {}
+		on setAddonsForRuby from Ruby to BuildpackSet do {}
+		on setAddonsForNodejs from Nodejs to BuildpackSet do {}
+		on setAddonsForClojure from Clojure to BuildpackSet do {}
+		on setAddonsForGradle from Gradle to BuildpackSet do {}
+		on setAddonsForPhp from Php to BuildpackSet do {}
+		on setAddonsForGo from Go to BuildpackSet do {}
+		on addHerokuPostgres1 from BuildpackSet to BuildpackSet do {}
+		on addHerokuPostgres2 from BuildpackSet to BuildpackSet do {}
+		on addClearDBMySQL1 from BuildpackSet to BuildpackSet do {}
+		on addScoutAPM1 from BuildpackSet to BuildpackSet do {}
+		on addNewRelicAPM1 from BuildpackSet to BuildpackSet do {}
+		on receiveAddonResponse from BuildpackSet to BuildpackSet do {}
+		on addonAddingError from BuildpackSet to Error do {}
+		on pushAppToContainer from BuildpackSet to AppPushed do {}
+		on finish from AppPushed to AppReady do {}
+		on appPushingError from AppPushed to Error do {}
+		on clickAddMorePostgres from AppReady to TempAppReady do {}
+		on deleteContainerSpontaneous from AppReady to Deleted do {}
+		on javaBIPdetach from AppReady to Detached do {}
+		on addMorePostgres from TempAppReady to AppReady do {}
+		on resetAll from Deleted to Init do {}
+		on resetAll from Detached to Init do {}
+	end
+
+	connector type buildpackdeployer3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type synthesisBuildpack6_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack6_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackScout8_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetAddon2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup6_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup7_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetAddon3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackScout9_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type synthesisBuildpack7_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack7_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type synthesisBuildpack5_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack5_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployersetGradle_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB8_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetAddon1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup5_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackClearDB9_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type synthesisBuildpack4_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer5_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgres8_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetAddon4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetAddon5_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgresm1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type synthesisBuildpack1_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgres9_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackdeployer4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type addonsForEU_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type addonsForEU_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer6_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type synthesisBuildpack3_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetAddon7_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetAddon6_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type synthesisBuildpackm1_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpackm1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type synthesisBuildpack2_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer7_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type setEURegion_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetClojure_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic9_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic8_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetPhP_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type setadnsForUS_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployersetNodejs_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployResponse_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type availableAddons_1_root_define(Port p1, Port p2, Port p3, Port p4, Port p5, Port p6)
+		define p1' p2' p3 p4 p5 p6 
+	end
+	connector type buildpackdeployerm1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployFreeDyno_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetJava_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic3_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetScala_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic2_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelicm1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetJvm_1_c00_define(Port p1, Port p2)
+		export port Port ep()
+		define p1 p2 
+	end
+	connector type deployersetJvm_1_root_define(Port p1)
+		define p1' 
+	end
+	connector type buildpackNewRelic1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type setUSRegion_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScoutm1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type addonsForUS_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type addonsForUS_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackNewRelic5_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic4_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic6_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetPython_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackNewRelic7_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackpostgres7_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScout1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB2_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB3_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackpostgres6_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetSetupm1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetupm3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackdeployer9_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgres4_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScout2_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployFreeAddon4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetAddon8_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployFreeAddon5_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackScout3_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackpostgres5_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackdeployer8_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetupm2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgres1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type synthesisBuildpack9_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack9_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackScout7_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB4_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployFreeAddon1_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type resetSetup9_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployersetGo_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployersetRuby_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetSetup8_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackClearDB5_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScout6_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type synthesisBuildpack8_1_c00_define(Port p1, Port p2, Port p3, Port p4, Port p5)
+		export port Port ep()
+		define p1 p2 p3 p4 p5 
+	end
+	connector type synthesisBuildpack8_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type setadnsForEU_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackpostgres2_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScout4_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDBm1_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackClearDB7_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type deployFreeAddon2_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type deployFreeAddon3_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+	connector type buildpackClearDB6_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackScout5_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type buildpackpostgres3_1_root_define(Port p1, Port p2)
+		define p1 p2 
+	end
+	connector type resetSetupm4_1_root_define(Port p1, Port p2)
+		define p1' p2 
+	end
+
+	compound type herokudeployerCompound()
+		component HerokuNewRelicAPM relic()
+		component HerokuClearDBMySQL cleardb()
+		component HerokuBuildpack buildpack()
+		component HerokuRegion region()
+		component Deployer deployer()
+		component HerokuDynoType dynotype()
+		component HerokuPostgres postgres()
+		component HerokuScoutAPM scout()
+		connector buildpackdeployer3_1_root_define buildpackdeployer3_1_root_0(buildpack.setAddonsForPython, deployer.setAddonsForPython)
+		connector synthesisBuildpack6_1_c00_define synthesisBuildpack6_1_c00_0(deployer.setAddonsForClojure, scout.off, relic.off, postgres.fon, cleardb.fon)
+		connector synthesisBuildpack6_1_root_define synthesisBuildpack6_1_root_0(synthesisBuildpack6_1_c00_0.ep, buildpack.setAddonsForClojure)
+		connector buildpackScout8_1_root_define buildpackScout8_1_root_0(postgres.off, buildpack.setAddonsForJvm)
+		connector resetAddon2_1_root_define resetAddon2_1_root_0(deployer.resetAll, postgres.off)
+		connector resetSetup6_1_root_define resetSetup6_1_root_0(deployer.resetAll, cleardb.removeJvm)
+		connector resetSetup7_1_root_define resetSetup7_1_root_0(deployer.resetAll, cleardb.removePython)
+		connector resetAddon3_1_root_define resetAddon3_1_root_0(deployer.resetAll, region.reset)
+		connector buildpackScout9_1_root_define buildpackScout9_1_root_0(postgres.fon, buildpack.setAddonsForPhp)
+		connector synthesisBuildpack7_1_c00_define synthesisBuildpack7_1_c00_0(postgres.off, scout.off, deployer.setAddonsForGradle, cleardb.off, relic.off)
+		connector synthesisBuildpack7_1_root_define synthesisBuildpack7_1_root_0(synthesisBuildpack7_1_c00_0.ep, buildpack.setAddonsForGradle)
+		connector buildpackdeployer2_1_root_define buildpackdeployer2_1_root_0(buildpack.setAddonsForScala, deployer.setAddonsForScala)
+		connector synthesisBuildpack5_1_c00_define synthesisBuildpack5_1_c00_0(scout.off, deployer.setAddonsForNodejs, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack5_1_root_define synthesisBuildpack5_1_root_0(synthesisBuildpack5_1_c00_0.ep, buildpack.setAddonsForNodejs)
+		connector deployersetGradle_1_root_define deployersetGradle_1_root_0(deployer.setGradle, cleardb.setGradle)
+		connector buildpackClearDB8_1_root_define buildpackClearDB8_1_root_0(postgres.fon, buildpack.setAddonsForJvm)
+		connector resetAddon1_1_root_define resetAddon1_1_root_0(deployer.resetAll, postgres.reset)
+		connector resetSetup5_1_root_define resetSetup5_1_root_0(deployer.resetAll, cleardb.removeScala)
+		connector resetSetup4_1_root_define resetSetup4_1_root_0(deployer.resetAll, cleardb.removeJava)
+		connector buildpackClearDB9_1_root_define buildpackClearDB9_1_root_0(postgres.fon, buildpack.setAddonsForPhp)
+		connector synthesisBuildpack4_1_c00_define synthesisBuildpack4_1_c00_0(scout.fon, deployer.setAddonsForRuby, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack4_1_root_define synthesisBuildpack4_1_root_0(synthesisBuildpack4_1_c00_0.ep, buildpack.setAddonsForRuby)
+		connector buildpackdeployer1_1_root_define buildpackdeployer1_1_root_0(buildpack.setAddonsForJava, deployer.setAddonsForJava)
+		connector buildpackdeployer5_1_root_define buildpackdeployer5_1_root_0(buildpack.setAddonsForNodejs, deployer.setAddonsForNodejs)
+		connector buildpackpostgres8_1_root_define buildpackpostgres8_1_root_0(postgres.fon, buildpack.setAddonsForJvm)
+		connector resetAddon4_1_root_define resetAddon4_1_root_0(deployer.resetAll, cleardb.off)
+		connector resetAddon5_1_root_define resetAddon5_1_root_0(deployer.resetAll, cleardb.reset)
+		connector resetSetup1_1_root_define resetSetup1_1_root_0(deployer.resetAll, dynotype.reset)
+		connector buildpackpostgresm1_1_root_define buildpackpostgresm1_1_root_0(postgres.fon, buildpack.setAddonsForGo)
+		connector synthesisBuildpack1_1_c00_define synthesisBuildpack1_1_c00_0(deployer.setAddonsForJava, scout.off, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack1_1_root_define synthesisBuildpack1_1_root_0(synthesisBuildpack1_1_c00_0.ep, buildpack.setAddonsForJava)
+		connector buildpackpostgres9_1_root_define buildpackpostgres9_1_root_0(postgres.fon, buildpack.setAddonsForPhp)
+		connector buildpackdeployer4_1_root_define buildpackdeployer4_1_root_0(buildpack.setAddonsForRuby, deployer.setAddonsForRuby)
+		connector addonsForEU_1_c00_define addonsForEU_1_c00_0(cleardb.fon, scout.fon, relic.fon, deployer.setAddonsForEU, postgres.fon)
+		connector addonsForEU_1_root_define addonsForEU_1_root_0(addonsForEU_1_c00_0.ep, region.setAddonsForEU)
+		connector buildpackdeployer6_1_root_define buildpackdeployer6_1_root_0(buildpack.setAddonsForClojure, deployer.setAddonsForClojure)
+		connector synthesisBuildpack3_1_c00_define synthesisBuildpack3_1_c00_0(deployer.setAddonsForPython, scout.fon, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack3_1_root_define synthesisBuildpack3_1_root_0(synthesisBuildpack3_1_c00_0.ep, buildpack.setAddonsForPython)
+		connector resetSetup3_1_root_define resetSetup3_1_root_0(deployer.resetAll, region.EUreset)
+		connector resetAddon7_1_root_define resetAddon7_1_root_0(deployer.resetAll, cleardb.reset)
+		connector resetAddon6_1_root_define resetAddon6_1_root_0(deployer.resetAll, cleardb.off)
+		connector resetSetup2_1_root_define resetSetup2_1_root_0(deployer.resetAll, region.USreset)
+		connector synthesisBuildpackm1_1_c00_define synthesisBuildpackm1_1_c00_0(scout.off, deployer.setAddonsForGo, relic.off, postgres.fon, cleardb.fon)
+		connector synthesisBuildpackm1_1_root_define synthesisBuildpackm1_1_root_0(synthesisBuildpackm1_1_c00_0.ep, buildpack.setAddonsForGo)
+		connector synthesisBuildpack2_1_c00_define synthesisBuildpack2_1_c00_0(deployer.setAddonsForScala, scout.off, relic.off, postgres.fon, cleardb.fon)
+		connector synthesisBuildpack2_1_root_define synthesisBuildpack2_1_root_0(synthesisBuildpack2_1_c00_0.ep, buildpack.setAddonsForScala)
+		connector buildpackdeployer7_1_root_define buildpackdeployer7_1_root_0(buildpack.setAddonsForGradle, deployer.setAddonsForGradle)
+		connector setEURegion_1_root_define setEURegion_1_root_0(deployer.setEURegion, region.toEU)
+		connector deployersetClojure_1_root_define deployersetClojure_1_root_0(deployer.setClojure, cleardb.setClojure)
+		connector buildpackNewRelic9_1_root_define buildpackNewRelic9_1_root_0(postgres.fon, buildpack.setAddonsForPhp)
+		connector buildpackNewRelic8_1_root_define buildpackNewRelic8_1_root_0(postgres.fon, buildpack.setAddonsForJvm)
+		connector deployersetPhP_1_root_define deployersetPhP_1_root_0(cleardb.setPhP, deployer.setPhp)
+		connector setadnsForUS_1_root_define setadnsForUS_1_root_0(region.setAddonsForUS, deployer.setAddonsForUS)
+		connector deployersetNodejs_1_root_define deployersetNodejs_1_root_0(cleardb.setNodejs, deployer.setNodejs)
+		connector deployResponse_1_root_define deployResponse_1_root_0(deployer.receiveDynoResponse, dynotype.sendDynoResponse)
+		connector availableAddons_1_root_define availableAddons_1_root_0(region.setAddonsForEU, region.setAddonsForUS, relic.fon, scout.fon, postgres.fon, cleardb.fon)
+		connector buildpackdeployerm1_1_root_define buildpackdeployerm1_1_root_0(buildpack.setAddonsForGo, deployer.setAddonsForGo)
+		connector deployFreeDyno_1_root_define deployFreeDyno_1_root_0(deployer.setFreeDyno, dynotype.sub1)
+		connector deployersetJava_1_root_define deployersetJava_1_root_0(cleardb.setJava, deployer.setJava)
+		connector buildpackNewRelic3_1_root_define buildpackNewRelic3_1_root_0(postgres.fon, buildpack.setAddonsForPython)
+		connector deployersetScala_1_root_define deployersetScala_1_root_0(cleardb.setScala, deployer.setScala)
+		connector buildpackNewRelic2_1_root_define buildpackNewRelic2_1_root_0(postgres.off, buildpack.setAddonsForScala)
+		connector buildpackNewRelicm1_1_root_define buildpackNewRelicm1_1_root_0(postgres.off, buildpack.setAddonsForGo)
+		connector deployersetJvm_1_c00_define deployersetJvm_1_c00_0(cleardb.setJvm, deployer.setJvm)
+		connector deployersetJvm_1_root_define deployersetJvm_1_root_0(deployersetJvm_1_c00_0.ep)
+		connector buildpackNewRelic1_1_root_define buildpackNewRelic1_1_root_0(postgres.fon, buildpack.setAddonsForJava)
+		connector setUSRegion_1_root_define setUSRegion_1_root_0(region.toUS, deployer.setUSRegion)
+		connector buildpackScoutm1_1_root_define buildpackScoutm1_1_root_0(postgres.off, buildpack.setAddonsForGo)
+		connector addonsForUS_1_c00_define addonsForUS_1_c00_0(cleardb.fon, scout.fon, relic.fon, postgres.fon, deployer.setAddonsForUS)
+		connector addonsForUS_1_root_define addonsForUS_1_root_0(addonsForUS_1_c00_0.ep, region.setAddonsForUS)
+		connector buildpackNewRelic5_1_root_define buildpackNewRelic5_1_root_0(postgres.fon, buildpack.setAddonsForNodejs)
+		connector buildpackNewRelic4_1_root_define buildpackNewRelic4_1_root_0(postgres.fon, buildpack.setAddonsForRuby)
+		connector buildpackNewRelic6_1_root_define buildpackNewRelic6_1_root_0(buildpack.setAddonsForClojure, postgres.off)
+		connector deployersetPython_1_root_define deployersetPython_1_root_0(deployer.setPython, cleardb.setPython)
+		connector buildpackNewRelic7_1_root_define buildpackNewRelic7_1_root_0(postgres.off, buildpack.setAddonsForGradle)
+		connector buildpackpostgres7_1_root_define buildpackpostgres7_1_root_0(postgres.off, buildpack.setAddonsForGradle)
+		connector buildpackScout1_1_root_define buildpackScout1_1_root_0(postgres.off, buildpack.setAddonsForJava)
+		connector buildpackClearDB2_1_root_define buildpackClearDB2_1_root_0(postgres.fon, buildpack.setAddonsForScala)
+		connector buildpackClearDB3_1_root_define buildpackClearDB3_1_root_0(postgres.fon, buildpack.setAddonsForPython)
+		connector buildpackpostgres6_1_root_define buildpackpostgres6_1_root_0(buildpack.setAddonsForClojure, postgres.fon)
+		connector resetSetupm1_1_root_define resetSetupm1_1_root_0(deployer.resetAll, cleardb.removeClojure)
+		connector resetSetupm3_1_root_define resetSetupm3_1_root_0(deployer.resetAll, cleardb.removePhp)
+		connector buildpackdeployer9_1_root_define buildpackdeployer9_1_root_0(buildpack.setAddonsForPhp, deployer.setAddonsForPhp)
+		connector buildpackpostgres4_1_root_define buildpackpostgres4_1_root_0(postgres.fon, buildpack.setAddonsForRuby)
+		connector buildpackScout2_1_root_define buildpackScout2_1_root_0(postgres.off, buildpack.setAddonsForScala)
+		connector buildpackClearDB1_1_root_define buildpackClearDB1_1_root_0(postgres.fon, buildpack.setAddonsForJava)
+		connector deployFreeAddon4_1_root_define deployFreeAddon4_1_root_0(deployer.addScoutAPM, postgres.sub1)
+		connector resetAddon8_1_root_define resetAddon8_1_root_0(deployer.resetAll, cleardb.off)
+		connector deployFreeAddon5_1_root_define deployFreeAddon5_1_root_0(deployer.addNewRelicAPM, postgres.sub1)
+		connector buildpackScout3_1_root_define buildpackScout3_1_root_0(postgres.fon, buildpack.setAddonsForPython)
+		connector buildpackpostgres5_1_root_define buildpackpostgres5_1_root_0(postgres.fon, buildpack.setAddonsForNodejs)
+		connector buildpackdeployer8_1_root_define buildpackdeployer8_1_root_0(buildpack.setAddonsForJvm, deployer.setAddonsForJvm)
+		connector resetSetupm2_1_root_define resetSetupm2_1_root_0(deployer.resetAll, cleardb.removeGradle)
+		connector buildpackpostgres1_1_root_define buildpackpostgres1_1_root_0(postgres.fon, buildpack.setAddonsForJava)
+		connector synthesisBuildpack9_1_c00_define synthesisBuildpack9_1_c00_0(deployer.setAddonsForPhp, scout.fon, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack9_1_root_define synthesisBuildpack9_1_root_0(synthesisBuildpack9_1_c00_0.ep, buildpack.setAddonsForPhp)
+		connector buildpackScout7_1_root_define buildpackScout7_1_root_0(postgres.off, buildpack.setAddonsForGradle)
+		connector buildpackClearDB4_1_root_define buildpackClearDB4_1_root_0(postgres.fon, buildpack.setAddonsForRuby)
+		connector deployFreeAddon1_1_root_define deployFreeAddon1_1_root_0(postgres.sendAddonResponse, deployer.receiveAddonResponse)
+		connector resetSetup9_1_root_define resetSetup9_1_root_0(deployer.resetAll, cleardb.removeNodejs)
+		connector deployersetGo_1_root_define deployersetGo_1_root_0(deployer.setGo, cleardb.setGo)
+		connector deployersetRuby_1_root_define deployersetRuby_1_root_0(deployer.setRuby, cleardb.setRuby)
+		connector resetSetup8_1_root_define resetSetup8_1_root_0(deployer.resetAll, cleardb.removeRuby)
+		connector buildpackClearDB5_1_root_define buildpackClearDB5_1_root_0(postgres.fon, buildpack.setAddonsForNodejs)
+		connector buildpackScout6_1_root_define buildpackScout6_1_root_0(buildpack.setAddonsForClojure, postgres.off)
+		connector synthesisBuildpack8_1_c00_define synthesisBuildpack8_1_c00_0(scout.off, deployer.setAddonsForJvm, postgres.fon, relic.fon, cleardb.fon)
+		connector synthesisBuildpack8_1_root_define synthesisBuildpack8_1_root_0(synthesisBuildpack8_1_c00_0.ep, buildpack.setAddonsForJvm)
+		connector setadnsForEU_1_root_define setadnsForEU_1_root_0(region.setAddonsForEU, deployer.setAddonsForEU)
+		connector buildpackpostgres2_1_root_define buildpackpostgres2_1_root_0(postgres.fon, buildpack.setAddonsForScala)
+		connector buildpackScout4_1_root_define buildpackScout4_1_root_0(postgres.fon, buildpack.setAddonsForRuby)
+		connector buildpackClearDBm1_1_root_define buildpackClearDBm1_1_root_0(postgres.fon, buildpack.setAddonsForGo)
+		connector buildpackClearDB7_1_root_define buildpackClearDB7_1_root_0(postgres.off, buildpack.setAddonsForGradle)
+		connector deployFreeAddon2_1_root_define deployFreeAddon2_1_root_0(deployer.addHerokuPostgres, postgres.sub1)
+		connector deployFreeAddon3_1_root_define deployFreeAddon3_1_root_0(deployer.addClearDBMySQL, postgres.sub1)
+		connector buildpackClearDB6_1_root_define buildpackClearDB6_1_root_0(buildpack.setAddonsForClojure, postgres.fon)
+		connector buildpackScout5_1_root_define buildpackScout5_1_root_0(postgres.off, buildpack.setAddonsForNodejs)
+		connector buildpackpostgres3_1_root_define buildpackpostgres3_1_root_0(postgres.fon, buildpack.setAddonsForPython)
+		connector resetSetupm4_1_root_define resetSetupm4_1_root_0(deployer.resetAll, cleardb.removeGo)
+	end
+end

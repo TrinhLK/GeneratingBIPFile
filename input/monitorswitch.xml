@@ -119,13 +119,14 @@
 			<annotation id="switchServer_2">(Monitor_2.switchServer)-(Switch.switchServer)</annotation>
 			<annotation id="switchConfirm_2">(Monitor_2.receiveSwitchConfirm)-(Switch.switchConfirm)</annotation>
 			<annotation id="switchServer_3">(Monitor_3.switchServer)-(Switch.switchServer)</annotation>
-			<annotation id="switchConfirm_3">(Monitor_3.receivedSwitchConfirm)-(Switch.switchConfirm)</annotation>
+			<annotation id="switchConfirm_3">(Monitor_3.receiveSwitchConfirm)-(Switch.switchConfirm)</annotation>
 			<annotation id="addDB_3">(Monitor_3.addDatabase)-(HerokuController.addDatabase)</annotation>
 			<annotation id="data_3">data: String currentReq: Monitor_3-HerokuController</annotation>
 			<annotation id="switchServer_4">(Monitor_4.switchServer)-(Switch.switchServer)</annotation>
 			<annotation id="switchConfirm_4">(Monitor_4.receiveSwitchConfirm)-(Switch.switchConfirm)</annotation>
 			<annotation id="addDB_4">(Monitor_4.addDatabase)-(HerokuController.addDatabase)</annotation>
 			<annotation id="data_4">data: String currentReq: Monitor_4-HerokuController</annotation>
-			<annotation id="MAIN">switchServer_3, switchConfirm_3, addDB_3, data_3</annotation>
+			<annotation id="MAIN">switchServer_3, switchConfirm_3,addDB_3, data_3</annotation>
+			<annotation id="property_1">prop: (and (= Switch.SwitchInit 1) (>= (+ Monitor.MonitorInit Monitor_2.MonitorInit Monitor_3.MonitorInit Monitor_4.MonitorInit) 1) (= HerokuController.Init 1))</annotation>
 	</annotations>
 </extension>

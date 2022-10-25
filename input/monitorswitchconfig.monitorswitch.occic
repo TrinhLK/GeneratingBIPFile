@@ -3,4 +3,5 @@ configuration use "http://occiwarebip.org/monitorswitch#/" resource "urn:uuid:ec
 { } resource "urn:uuid:92924e87-3871-49e2-96c6-1692d6177796" : monitorswitch.Monitor_3 title "monitor_3"
 { } resource "urn:uuid:dcf8234a-38c9-482f-bd2e-1d81de6140c4" : monitorswitch.Monitor_4 title "monitor_4"
 { } resource "urn:uuid:c317de8b-cb9a-429e-8e87-7fdec132bb3f" : monitorswitch.Switch title "switch"
+{ } resource "urn:uuid:c317123b-4444-5555-6666-77c132bb3f77" : monitorswitch.HerokuController title "herokucontroller"
 { }

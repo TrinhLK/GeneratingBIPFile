@@ -2,7 +2,9 @@ package treestructure;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 import supportlibs.*;
@@ -92,8 +94,10 @@ public class GenBIPModel {
 //		testMT.test();
 //		testMT.generateBIPModel(args[0], args[1]);
 //		testMT.genPropertyFile(args[0], args[1]);
-		String xmlFile = "input/monitorswitch.xml";
-		String configFile = "input/monitorswitchconfig.monitorswitch.occic";
+//		String xmlFile = "input/monitorswitch.xml";
+//		String configFile = "input/monitorswitchconfig.monitorswitch.occic";
+		String xmlFile = "input/herokudeployer.xml";
+		String configFile = "input/heroku.configure";
 		testMT.generateBIPModel(xmlFile, configFile);
 		testMT.genPropertyFile(xmlFile, configFile);
 	}
@@ -149,6 +153,10 @@ public class GenBIPModel {
 		StringBuilder sbInvariants = new StringBuilder();
 //		ArrayList<Annotation> listPickedAnnotations = new ArrayList<Annotation>();
 //		ArrayList<String> listPickedAnnotations_String = new ArrayList<String>();
+		System.out.println("list annotation: " + listAnnotation.size());
+		for (Annotation anno : listAnnotation) {
+			anno.printAnno();
+		}
 		/**
 		 * BIP Model
 		 * ----------------------------------------
@@ -161,21 +169,44 @@ public class GenBIPModel {
 			sb.append(c.generateComponent() + "\n\n");
 		}
 		
+		ArrayList<String> allAnnos = new ArrayList<String>();
+		ArrayList<String> selectedAnnos = new ArrayList<String>();
 		String pickedAnno = "";
 		for (Annotation anno : listAnnotation) {
 			if (anno.getId().equals("MAIN")) {
 				pickedAnno = anno.getValue();
 			}
+			else {
+				allAnnos.add(anno.getId());
+			}
 		}
-		String[] res = pickedAnno.split(",[\\s]*");
-		for (String out : res) {
-	        if (!"".equals(out)) {
-	            System.out.println(out);
-	        }
-	    }
+		if (pickedAnno.equalsIgnoreCase("all")) {
+			selectedAnnos = allAnnos;
+		}else if (pickedAnno.equalsIgnoreCase("except ")) {
+			String removeAnnosStr = pickedAnno.replace("except ", "");
+			String[] tmpListRm = removeAnnosStr.split(",[\\s]*");
+			List<String> listRm = Arrays.asList(tmpListRm); 
+			for (String anno : allAnnos) {
+				if (listRm.contains(anno)) {
+					continue;
+				}else {
+					selectedAnnos.add(anno);
+				}
+			}
+		}else {
+			String[] res = pickedAnno.split(",[\\s]*");
+			selectedAnnos = (ArrayList<String>) Arrays.asList(res);
+		}
+		
+//		String[] res = pickedAnno.split(",[\\s]*");
+//		for (String out : res) {
+//	        if (!"".equals(out)) {
+//	            System.out.println(out);
+//	        }
+//	    }
 //		System.out.println("PICKED: " + res);
 		for (Annotation anno : listAnnotation) {
-			if (isIn(anno.getId(), res)) {
+			if (isIn(anno.getId(), selectedAnnos)) {
 				TreeNode root = new TreeNode("root.null", false, null);
 				createTree(root, anno.getValue(), 0);
 				sb.append(genBIPDefineCode(root, anno.getValue(), anno.getId()));
@@ -192,7 +223,7 @@ public class GenBIPModel {
 		}
 
 		for (Annotation anno : listAnnotation) {
-			if (isIn(anno.getId(), res)) {
+			if (isIn(anno.getId(), selectedAnnos)) {
 				TreeNode root = new TreeNode("root.null", false, null);
 				createTree(root, anno.getValue(), 0);
 				sb.append(genDetailBIPConnector(root, anno.getValue(), anno.getId(), dataOfInstances));
@@ -259,9 +290,10 @@ public class GenBIPModel {
 		//Generating a template
 		root.genBIPConnector(bipConnector, annoId);
 		bipConnectorStr = bipConnector.stream().collect(Collectors.joining(""));
-		
+
 		//Generating all possible connectors 
 		bipConnector = Combination.generateAllPossibleInstances(bipConnectorStr, dataOfInstances);
+		System.out.println("dataOfInstances: " + dataOfInstances.toString());
 		System.out.println("check null: " + bipConnector);
 		return bipConnector.stream().collect(Collectors.joining("\n"));
 	}
@@ -334,7 +366,7 @@ public class GenBIPModel {
 		}
 	}
 	
-	public boolean isIn(String value, String[] listValue) {
+	public boolean isIn(String value, ArrayList<String> listValue) {
 		for (String item : listValue) {
 			if (value.equals(item)) {
 				return true;

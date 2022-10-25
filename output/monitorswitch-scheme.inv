@@ -1,0 +1,10 @@
+# atom control invariants
+-at Switch -a atom-control
+-at Monitor -a atom-control
+-at Monitor_2 -a atom-control
+-at Monitor_3 -a atom-control
+-at Monitor_4 -a atom-control
+-at HerokuController -a atom-control
+
+# compound control reachability
+-ct monitorswitchCompound -a control-reachability
